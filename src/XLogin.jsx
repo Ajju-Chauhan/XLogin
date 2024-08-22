@@ -1,58 +1,53 @@
-import { useState } from "react";
+import React, { useState } from 'react';
 
-export default function XLogin() {
-  let [data, setData] = useState({
-    username: "",
-    password: "",
-  });
-  const [message, setMessage] = useState("");
+const XLogin = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  console.log(username, password)
 
-  function handleInput(e) {
-    const { name, value } = e.target;
-    setData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  }
-
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    if (data.username === "user" && data.password === "password") {
-      setMessage("Welcome, user!");
+
+    if (username === 'user' && password === 'password') {
+      setMessage('Welcome, user!');
     } else {
-      setMessage("Invalid username or password");
+      setMessage('Invalid username or password');
     }
-  }
+  };
 
   return (
-    <>
+    
+    <div className="xlogin-container">
+        <h2>Login page</h2>
       <form onSubmit={handleSubmit}>
-        <label>
-          USERNAME:
+        <div className="form-group">
+          <label htmlFor="username">Username : </label>
           <input
             type="text"
-            placeholder="username"
-            required
+            id="username"
             name="username"
-            onChange={handleInput}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
           />
-        </label>
-        <br />
-        <label>
-          PASSWORD:
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">Password : </label>
           <input
             type="password"
-            placeholder="password"
-            required
+            id="password"
             name="password"
-            onChange={handleInput}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
           />
-        </label>
-        <br />
+        </div>
         <button type="submit">Submit</button>
       </form>
-      {message && <p>{message}</p>}
-    </>
+      {message && <p className="message">{message}</p>}
+    </div>
   );
-}
+};
+
+export default XLogin;
